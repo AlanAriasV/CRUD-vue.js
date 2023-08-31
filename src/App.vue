@@ -1,12 +1,17 @@
-<template lang="html">
-    <div>
-    </div>
+<template>
+	<header>
+		<img
+			src="#"
+			alt="logo"
+		/>
+	</header>
+	<nav>Algo...</nav>
+	<main>
+		<Home />
+	</main>
 </template>
 
-<script lang="ts">
-export default {
-    
-}
+<script setup lang="ts">
+import Home from './pages/Home.vue';
 </script>
-<style lang="sass">
-</style>
+<style scoped lang="scss"></style>
