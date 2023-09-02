@@ -1,13 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
-$body-font-family: 'Rajdhani', sans-serif;
-$rajdhani-light: Rajdhani;
-$rajdhani-regular: Rajdhani;
-$rajdhani-medium: Rajdhani;
-$rajdhani-semi-bold: Rajdhani;
-$rajdhani-bold: Rajdhani;
+$font-family: 'Rajdhani', sans-serif;
 
-body {
+$fontsize-title: 40px;
+$fontsize-subtitle: 20px;
+
+html, body {
     background-color: rgb(26, 27, 30);
     color: white;
+    margin: 0;
+    height: 100%;
+}
+
+#app {
+    height: inherit;
+    display: grid;
+    grid-template-rows: 13% 2% 1fr;
+}
+
+h1, h2 {
+    margin: 0;
+    padding: 0;
+    font-family: $font-family;
+    font-weight: 600;
+    font-size: $fontsize-title;
+}
+
+h3 {
+    margin: 0;
+    padding: 0;
+    font-family: $font-family;
+    font-weight: 400;
+    font-size: $fontsize-subtitle;
 }
