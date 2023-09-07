@@ -5,7 +5,27 @@ $font-family: 'Rajdhani', sans-serif;
 $fontsize-title: 40px;
 $fontsize-subtitle: 20px;
 
-html, body {
+$blue: #22A7F0;
+$purple: #BF55EC;
+$pink: #F62459;
+$yellow: #F7CA18;
+$orange: #F89406;
+$green: #2ECC71;
+
+:root {
+    --blue-color: #22A7F0;
+    --purple-color: #BF55EC;
+    --pink-color: #F62459;
+    --yellow-color: #F7CA18;
+    --orange-color: #F89406;
+    --green-color: #2ECC71;
+
+    --font: 'Rajdhani',
+        sans-serif;
+}
+
+html,
+body {
     background-color: rgb(26, 27, 30);
     color: white;
     margin: 0;
@@ -18,7 +38,8 @@ html, body {
     grid-template-rows: 13% 2% 1fr;
 }
 
-h1, h2 {
+h1,
+h2 {
     margin: 0;
     padding: 0;
     font-family: $font-family;

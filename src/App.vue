@@ -1,7 +1,7 @@
 <template>
-	<Header />
-	<hr>
-	<Home />
+    <Header />
+    <hr>
+    <Home />
 </template>
 
 <script setup lang="ts">
