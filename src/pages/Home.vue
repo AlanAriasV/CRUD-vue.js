@@ -20,5 +20,6 @@ section {
 	border-radius: 5px;
 	padding: 10px 20px;
 	flex-grow: 1;
+	box-sizing: border-box;
 }
 </style>

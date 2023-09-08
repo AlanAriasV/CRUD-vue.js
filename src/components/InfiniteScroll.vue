@@ -1,12 +1,16 @@
 <template>
-  <div class="grid-container">
+  <div class="grid-container" id="1">
     <div class="grid-item" v-for="post in postsList">
-      <img :src="post.thumbnail" alt="">
+      <Post :imgId=post.id :imgSrc=post.thumbnail imgUpVotes="1" imgDownVotes="1" />
     </div>
-    <div ref="infinitescrolltrigger" id="scoll-trigger" />
+    <div ref="infinitescrolltrigger" id="scroll-trigger" />
     <div class="circle-loader" v-if="showloader" />
   </div>
 </template>
+
+<script setup lang="ts">
+import Post from '../components/Post.vue';
+</script>
 
 <script lang="ts">
 import { ref } from 'vue';
@@ -38,6 +42,8 @@ export default {
 
     scrollTrigger() {
       const observer = new IntersectionObserver((entries) => {
+        console.log(entries);
+
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             this.showloader = true;
@@ -59,17 +65,26 @@ export default {
 
 <style scoped lang="scss">
 // arreglar tamaño
+$scrollbar-border: 12px;
+
 .grid-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  max-height: 500px;
+  grid-template-columns: repeat(4, 1fr);
+  height: 600px;
+  width: 100%;
+  gap: 10px;
+  box-sizing: border-box;
+  padding: 0px 5px;
   overflow-x: hidden;
   overflow-y: scroll;
 }
 
-$scrollbar-border: 12px;
+.grid-item {
+  display: flex;
+  position: relative;
+}
 
-.grid-container::-webkit-scrollbar-track {
+.grid-item .grid-container::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   background-color: transparent;
@@ -100,10 +115,10 @@ $scrollbar-border: 12px;
   border-radius: 50%;
   border: 5px solid rgba(255, 255, 255, .2);
   border-top: 5px solid #fff;
-  animation: animate 1.5s infinite linear;
+  animation: loading 1.5s infinite linear;
 }
 
-@keyframes animate {
+@keyframes loading {
   0% {
     transform: translate(-50%, -50%) rotate(0deg);
   }
