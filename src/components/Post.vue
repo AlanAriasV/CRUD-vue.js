@@ -13,11 +13,11 @@
 <script setup lang="ts">
 const data = defineProps(['imgId', 'imgSrc', 'imgUpVotes', 'imgDownVotes']);
 
-function voteUp(event) {
+function voteUp() {
     console.log("Votar positivo img: ", data.imgId);
 }
 
-function voteDown(event) {
+function voteDown() {
     console.log("Votar negativo img: ", data.imgId);
 }
 </script>
@@ -26,6 +26,7 @@ function voteDown(event) {
 .thumbnail {
     border-radius: 10px;
     width: 100%;
+    max-height: 250px;
     object-fit: cover;
 }
 

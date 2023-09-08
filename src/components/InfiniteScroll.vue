@@ -1,7 +1,7 @@
 <template>
   <div class="grid-container" id="1">
     <div class="grid-item" v-for="post in postsList">
-      <Post :imgId=post.id :imgSrc=post.thumbnail imgUpVotes="1" imgDownVotes="1" />
+      <Post :imgId=post.id :imgSrc=post.thumbnail :imgUpVotes=post.price :imgDownVotes=post.stock />
     </div>
     <div ref="infinitescrolltrigger" id="scroll-trigger" />
     <div class="circle-loader" v-if="showloader" />
@@ -20,7 +20,7 @@ export default {
   data: () => {
     return {
       currentPage: 1,
-      maxPerPage: 6,
+      maxPerPage: 8,
       showloader: false,
       postsList: ref([])
     }
@@ -42,8 +42,6 @@ export default {
 
     scrollTrigger() {
       const observer = new IntersectionObserver((entries) => {
-        console.log(entries);
-
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             this.showloader = true;
@@ -53,6 +51,7 @@ export default {
           }
         });
       });
+
 
       observer.observe(this.$refs.infinitescrolltrigger);
     }
