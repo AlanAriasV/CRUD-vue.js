@@ -26,7 +26,6 @@ function voteDown() {
 .thumbnail {
     border-radius: 10px;
     width: 100%;
-    max-height: 250px;
     object-fit: cover;
 }
 

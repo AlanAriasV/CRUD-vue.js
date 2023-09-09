@@ -50,6 +50,9 @@ export default {
             this.showloader = false;
           }
         });
+      }, {
+        rootMargin: '0px',
+        threshold: [.5, 0],
       });
 
 
@@ -81,6 +84,7 @@ $scrollbar-border: 12px;
 .grid-item {
   display: flex;
   position: relative;
+  max-height: 350px;
 }
 
 .grid-item .grid-container::-webkit-scrollbar-track {

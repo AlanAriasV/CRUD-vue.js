@@ -2,14 +2,26 @@
     <section>
         <div class="wall-images-header">
             <h2>Muro de Imagenes</h2>
-            <button>Subir</button>
+            <button @click="openModal">Subir</button>
+
         </div>
         <InfiniteScroll />
     </section>
+    <ModalUpload v-if="show" @close="closeModal" />
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+import ModalUpload from './ModalUpload.vue'
 import InfiniteScroll from '../components/InfiniteScroll.vue'
+
+const show = ref(false);
+const openModal = () => {
+    show.value = true;
+}
+const closeModal = () => {
+    show.value = false;
+}
 </script>
 
 <style lang="scss">
