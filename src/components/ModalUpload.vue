@@ -5,27 +5,55 @@
                 <h1>Subir imagen</h1>
             </div>
             <div class="modal-body">
-                <div class="upload-placeholder">
+                <div class="upload-container">
                     <form method="post" action="" enctype="multipart/form-data">
-                        <input type="file" name="files[]" id="file" />
+                        <input type="file" name="file" id="file" @change="onFileChange" />
                         <label for="file">
-                            <i class="pi pi-image" />
-                            Arrasta la imagen aquí o presiona para buscar
+                            <div v-if="!url" class="img-placeholder">
+                                <i class="pi pi-image" />
+                                <p>Arrasta la imagen aquí o presiona para buscar</p>
+                            </div>
+                            <div v-else class="img-preview">
+                                <img :src="url" alt="preview">
+                                <i class="pi pi-image" />
+                            </div>
                         </label>
                     </form>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn-cancel">
-                    Cancelar
+                <button class="btn-cancel" @click="$emit('close')">
+                    <i class="pi pi-delete-left"></i>
+                    <p>Cancelar</p>
                 </button>
-                <button class="btn-accept">
-                    Aceptar
+                <button class="btn-accept" @click="upload" :disabled="!url">
+                    <i class="pi pi-upload"></i>
+                    <p>Subir</p>
                 </button>
             </div>
         </div>
     </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const url = ref<string>();
+
+function onFileChange(e: Event) {
+    const file = e.target.files[0];
+    url.value = URL.createObjectURL(file);
+}
+
+function upload() {
+    if (!url.value) {
+        return null
+    }
+    console.log('subir ', url.value);
+
+}
+
+</script>
 
 <style lang="scss">
 .modal {
@@ -69,7 +97,7 @@
     height: 50%;
 }
 
-.upload-placeholder {
+.upload-container {
     height: 100%;
     top: 0;
     left: 0;
@@ -96,13 +124,59 @@
         flex-direction: column;
         text-align: center;
         font-size: 1rem;
-        padding: 0px 10px;
         height: 100%;
     }
+
+    .img-preview {
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        i {
+            opacity: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        &:hover img {
+            opacity: 0.3;
+        }
+
+        &:hover i {
+            opacity: 1;
+        }
+    }
 }
+
 
 .modal-footer {
     display: flex;
     gap: 50px;
+
+    button {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        &:disabled {
+            color: grey;
+            border-color: grey;
+
+            &:hover {
+                background: none;
+                cursor: default;
+            }
+        }
+    }
 }
 </style>
