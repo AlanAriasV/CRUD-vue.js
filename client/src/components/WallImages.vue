@@ -7,7 +7,9 @@
         </div>
         <InfiniteScroll />
     </section>
-    <ModalUpload v-if="show" @close="closeModal" />
+    <Transition>
+        <ModalUpload v-if="show" @close="closeModal" />
+    </Transition>
 </template>
 
 <script setup lang="ts">
@@ -55,5 +57,16 @@ button {
         border-color: rgba(0, 0, 0, 0.2);
         color: #000000;
     }
+}
+
+
+.v-enter-active,
+.v-leave-active {
+    transition: opacity 0.2s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
 }
 </style>

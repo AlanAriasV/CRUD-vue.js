@@ -1,6 +1,7 @@
 <template>
     <div class="modal-container">
-        <div class="modal">
+        <div class="modal-background" @click="$emit('close')" />
+        <div class="modal-content">
             <div class="modal-header">
                 <h1>Subir imagen</h1>
             </div>
@@ -56,7 +57,30 @@ function upload() {
 </script>
 
 <style lang="scss">
-.modal {
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+}
+
+.modal-background {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+}
+
+.modal-content {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -71,23 +95,6 @@ function upload() {
     padding: 50px;
     border-radius: 5px;
     font-family: var(--font);
-}
-
-
-.modal-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
-
-    justify-content: center;
-    align-items: center;
-
-    width: 100%;
-    height: 100%;
-
-    /* --m-background is set as inline style */
-    background: rgba(0, 0, 0, 0.5);
 }
 
 .modal-body {
@@ -157,7 +164,6 @@ function upload() {
         }
     }
 }
-
 
 .modal-footer {
     display: flex;
