@@ -5,13 +5,14 @@
 	</main>
 </template>
 <script setup lang="ts">
-import WallImages from '../components/WallImages.vue'
-import Categories from '../components/Categories.vue'
+import WallImages from '../components/WallImages.vue';
+import Categories from '../components/Categories.vue';
 </script>
 <style scoped lang="scss">
 main {
 	padding: 0px 20px 20px;
-	display: flex;
+	display: grid;
+	grid-template-columns: 80% 20%;
 	gap: 10px;
 }
 
