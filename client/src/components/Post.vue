@@ -8,6 +8,9 @@
             <i @click="voteDown" class="pi pi-arrow-circle-down downvote" /> <span> {{ data.imgDownVotes }}</span>
         </div>
     </div>
+    <div @click="Delete" class="image-header">
+        <i class="pi pi-trash"></i>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -20,6 +23,10 @@ function voteUp() {
 function voteDown() {
     console.log("Votar negativo img: ", data.imgId);
 }
+
+function Delete() {
+    console.log("Eliminar img: ", data.imgId);
+}
 </script>
 
 <style lang="scss">
@@ -27,6 +34,28 @@ function voteDown() {
     border-radius: 10px;
     width: 100%;
     object-fit: cover;
+}
+
+.image-header {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    font-size: 1.3rem;
+    font-family: var(--font);
+    border-radius: 5px;
+    padding: 7px;
+    gap: 10px;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(0, 0, 0, 0.4);
+
+    &:hover {
+        background-color: var(--red-color);
+
+        .pi {
+            animation: zoom-in-zoom-out 1s ease infinite;
+        }
+    }
 }
 
 .image-footer {
@@ -42,7 +71,6 @@ function voteDown() {
     left: 5px;
     background-color: rgba(0, 0, 0, 0.4);
 }
-
 
 .vote-container {
     display: flex;
