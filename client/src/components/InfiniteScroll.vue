@@ -15,12 +15,12 @@
 			/>
 		</div>
 		<div
-			ref="infinitescrolltrigger"
+		
 			id="scroll-trigger"
 		/>
 		<div
 			class="circle-loader"
-			v-if="showloader"
+			v-if="showLoader"
 		/>
 	</div>
 </template>
@@ -38,8 +38,17 @@ export default {
 		return {
 			currentPage: 1,
 			maxPerPage: 8,
-			showloader: false,
-			postsList: ref([]),
+			showLoader: false,
+			postsList: ref(
+				<
+					{
+						id: string;
+						thumbnail: string;
+						price: string;
+						stock: string;
+					}[]
+				>(<unknown>[])
+			),
 		};
 	},
 	computed: {},
@@ -59,10 +68,10 @@ export default {
 			const observer = new IntersectionObserver(
 				entries => {
 					entries.forEach(entry => {
-						if (entry.isIntersecting && !this.showloader) {
-							this.showloader = true;
+						if (entry.isIntersecting && !this.showLoader) {
+							this.showLoader = true;
 							this.getMorePosts().then(_ => {
-								this.showloader = false;
+								this.showLoader = false;
 							});
 						}
 					});
@@ -73,7 +82,7 @@ export default {
 				}
 			);
 
-			observer.observe(this.$refs.infinitescrolltrigger);
+			observer.observe(document.querySelector('#scroll-trigger')!);
 		},
 	},
 	mounted() {

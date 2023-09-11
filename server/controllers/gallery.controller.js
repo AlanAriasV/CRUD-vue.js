@@ -2,9 +2,9 @@
 //import multer from 'multer'
 import fs from "fs";
 import Image from "../models/image";
+const path = require("path");
 
 export const testing = (req, res) => {
-  let path = require("path");
   Image.find({}).then((data, err) => {
     if (err) {
       console.log(err);
@@ -15,19 +15,21 @@ export const testing = (req, res) => {
 
 //CHANGE ALL THIS METHOD TO MATCH IMAGES LATER, NOW IS ONLY FOR TESTING
 export const addImg = async (req, res) => {
-  let path = require("path");
+  let pathImage = path.resolve("./") + `\\${req.file.filename}`;
   const img = new Image({
-    title: req.body.name,
+    title: req.body.title,
     desc: req.body.desc,
     tag: req.body.tag,
     img: {
-      data: fs.readFileSync(path.resolve("./uploads/" + req.file.filename)),
+      data: req.body.image,
+      data: fs.readFileSync(pathImage),
       contentType: "image/png",
     },
   });
   await img
     .save()
     .then((result) => {
+      fs.unlinkSync(pathImage);
       res.json(result);
     })
     .catch((err) => {

@@ -11,7 +11,7 @@ const router = Router();
 
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads");
+    cb(null, "./");
   },
   filename: (req, file, cb) => {
     cb(null, file.fieldname + "-" + Date.now());
@@ -21,7 +21,6 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 router.get("/", testing);
-//router.get('/addImage',addImg)
 router.post("/addImage", upload.single("image"), addImg);
 router.post("/getAllImgs", getAllImages);
 router.post("/findImgByTag/:tag", findImgsByTag);
