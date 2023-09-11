@@ -28,6 +28,9 @@
 .categories-container {
     background-color: rgba(0, 0, 0, 0.1);
     display: flex;
+    gap: 5px;
+    padding: 5px;
+    border-radius: 5px;
     flex-direction: column;
 }
 

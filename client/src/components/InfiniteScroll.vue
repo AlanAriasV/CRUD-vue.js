@@ -1,27 +1,10 @@
 <template>
-	<div
-		class="grid-container"
-		id="1"
-	>
-		<div
-			class="grid-item"
-			v-for="post in postsList"
-		>
-			<Post
-				:imgId="post.id"
-				:imgSrc="post.thumbnail"
-				:imgUpVotes="post.price"
-				:imgDownVotes="post.stock"
-			/>
+	<div class="grid-container">
+		<div class="grid-item" v-for="post in postsList">
+			<Post :imgId="post.id" :imgSrc="post.thumbnail" :imgUpVotes="post.price" :imgDownVotes="post.stock" />
 		</div>
-		<div
-		
-			id="scroll-trigger"
-		/>
-		<div
-			class="circle-loader"
-			v-if="showLoader"
-		/>
+		<div id="scroll-trigger" />
+		<div class="circle-loader" v-if="showLoader" />
 	</div>
 </template>
 
@@ -41,12 +24,12 @@ export default {
 			showLoader: false,
 			postsList: ref(
 				<
-					{
-						id: string;
-						thumbnail: string;
-						price: string;
-						stock: string;
-					}[]
+				{
+					id: string;
+					thumbnail: string;
+					price: string;
+					stock: string;
+				}[]
 				>(<unknown>[])
 			),
 		};

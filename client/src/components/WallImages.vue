@@ -26,7 +26,12 @@ const closeModal = () => {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
+section {
+    display: grid;
+    grid-template-rows: min-content 1fr;
+}
+
 .wall-images-header {
     display: flex;
     justify-content: space-between;
