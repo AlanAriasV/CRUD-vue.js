@@ -15,21 +15,17 @@ export const testing = (req, res) => {
 
 //CHANGE ALL THIS METHOD TO MATCH IMAGES LATER, NOW IS ONLY FOR TESTING
 export const addImg = async (req, res) => {
-  let pathImage = path.resolve("./") + `\\${req.file.filename}`;
+  // let pathImage = path.resolve("./") + `\\${req.file.filename}`;
+  // console.log(req.body);
   const img = new Image({
-    title: req.body.title,
-    desc: req.body.desc,
-    tag: req.body.tag,
-    img: {
-      data: req.body.image,
-      data: fs.readFileSync(pathImage),
-      contentType: "image/png",
-    },
+    downVotes: 0,
+    img: req.body.img,
+    tag: "undefined",
+    upVotes: 0,
   });
   await img
     .save()
     .then((result) => {
-      fs.unlinkSync(pathImage);
       res.json(result);
     })
     .catch((err) => {
@@ -40,8 +36,10 @@ export const addImg = async (req, res) => {
 export const getAllImages = async (req, res, next) => {
   try {
     const images = await Image.find({});
+    // console.log(images[2].img);
     res.json(images);
   } catch (err) {
+    console.log(err);
     next(err);
   }
 };

@@ -48,24 +48,35 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { uploadPost } from '../api/api';
 
 const url = ref<string>();
+const base64 = ref<string>();
 const selectedCategory = ref<string>("Seleccione una categoría");
 const categories = ["Paisajes", "Fotorealista", "Ciencia Ficción", "Personajes", "3D", "Animales"];
 
 function onFileChange(e: Event) {
     const file = e.target.files[0];
     url.value = URL.createObjectURL(file);
+    toBase64(file);
 }
 
 function upload() {
-    if (!url.value) {
-        return null
+    // const file = e.target.files[0];
+    if (base64.value) {
+        // console.log(base64.value);
+        return uploadPost(base64.value);
     }
     console.log('subir ', url.value);
-
 }
 
+function toBase64(file: Blob) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+        base64.value = reader.result!.toString();
+    };
+}
 </script>
 
 <style lang="scss">

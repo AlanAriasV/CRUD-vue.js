@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/node": "^20.6.0",
     "axios": "^1.5.0",
     "primeicons": "^6.0.1",
     "sass": "^1.66.1",
