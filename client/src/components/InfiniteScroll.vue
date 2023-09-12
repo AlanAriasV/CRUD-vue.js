@@ -1,10 +1,12 @@
 <template>
-	<div class="grid-container" id="1">
-		<div class="grid-item" v-for="post in postsList">
-			<Post :imgId="post._id" :imgSrc="post.img" :imgDownVotes="post.downVotes" :imgUpVotes="post.upVotes" />
+	<div class="images">
+		<div class="grid-container" id="1">
+			<div class="grid-item" v-for="post in postsList">
+				<Post :imgId="post._id" :imgSrc="post.img" :imgDownVotes="post.downVotes" :imgUpVotes="post.upVotes" />
+			</div>
+			<div id="scroll-trigger" />
+			<div class="circle-loader" v-if="showLoader" />
 		</div>
-		<div id="scroll-trigger" />
-		<div class="circle-loader" v-if="showLoader" />
 	</div>
 </template>
 
