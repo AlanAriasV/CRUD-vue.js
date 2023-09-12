@@ -1,11 +1,16 @@
 <template>
-	<div class="images">
-		<div class="grid-container" id="1">
-			<div class="grid-item" v-for="post in postsList">
-				<Post :imgId="post._id" :imgSrc="post.img" :imgDownVotes="post.downVotes" :imgUpVotes="post.upVotes" />
-			</div>
-			<div id="scroll-trigger" />
-			<div class="circle-loader" v-if="showLoader" />
+	<div class="grid-container">
+		<div
+			class="grid-item"
+			v-for="post in postsList"
+		>
+			<Post
+				:imgId="post._id"
+				:imgSrc="post.img"
+				:imgDownVotes="post.downVotes"
+				:imgUpVotes="post.upVotes"
+				:deletePost="Delete"
+			/>
 		</div>
 	</div>
 </template>
@@ -16,8 +21,10 @@ import Post from '../components/Post.vue';
 
 <script lang="ts">
 import { ref } from 'vue';
-import { getPosts } from '../api/api';
+import { deletePost, getPosts } from '../api/api';
 ('../api/api.ts');
+
+const tag = ref<string>();
 
 export default {
 	data: () => {
@@ -27,31 +34,35 @@ export default {
 			showLoader: false,
 			postsList: ref(
 				<
-				{
-					_id: string;
-					_v: number;
-					createdAd: string;
-					downVotes: number;
-					img: string;
-					tag: string;
-					updatedAt: string;
-					upVotes: number;
-				}[]
+					{
+						_id: string;
+						_v: number;
+						createdAd: string;
+						downVotes: number;
+						img: string;
+						tag: string;
+						updatedAt: string;
+						upVotes: number;
+					}[]
 				>[]
 			),
 		};
 	},
 	computed: {},
 	methods: {
+		Delete(imgId: string) {
+			deletePost(imgId).then(_ => {});
+			console.log('Eliminar img: ', imgId);
+		},
 		pageOffset() {
 			return this.maxPerPage * this.currentPage;
 		},
 		async getMorePosts() {
-			const { data: newPosts } = await getPosts();
-			console.log('newPosts');
-			console.log(newPosts);
-			// this.maxPerPage,
-			// this.postsList.length
+			const { data: newPosts } = await getPosts({
+				tag: tag.value,
+				limit: this.maxPerPage,
+				skip: this.postsList.length,
+			});
 			this.postsList.push(...newPosts);
 		},
 

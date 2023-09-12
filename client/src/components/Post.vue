@@ -20,7 +20,7 @@
 		</div>
 	</div>
 	<div
-		@click="Delete"
+		@click="deletePost(imgId)"
 		class="image-header"
 	>
 		<i class="pi pi-trash"></i>
@@ -28,20 +28,30 @@
 </template>
 
 <script setup lang="ts">
-// import { computed } from 'vue';
+import { deletePost } from '../api/api';
 
 const props = defineProps({
-	imgId: { type: String, required: true },
-	imgSrc: { type: String, required: true },
-	imgUpVotes: { type: Number, required: true },
-	imgDownVotes: { type: Number, required: true },
+	imgId: {
+		type: String,
+		required: true,
+	},
+	imgSrc: {
+		type: String,
+		required: true,
+	},
+	imgUpVotes: {
+		type: Number,
+		required: true,
+	},
+	imgDownVotes: {
+		type: Number,
+		required: true,
+	},
+	deletePost: {
+		type: Function,
+		required: true,
+	},
 });
-
-// const convertBase64 = computed(() => {
-// 	return `data:${
-// 		props.imgData!.contentType
-// 	};base64,${props.imgData!.data.toString('base64')}`;
-// });
 
 function voteUp() {
 	console.log('Votar positivo img: ', props.imgId);
@@ -49,10 +59,6 @@ function voteUp() {
 
 function voteDown() {
 	console.log('Votar negativo img: ', props.imgId);
-}
-
-function Delete() {
-	console.log('Eliminar img: ', props.imgId);
 }
 </script>
 

@@ -35,8 +35,10 @@ export const addImg = async (req, res) => {
 
 export const getAllImages = async (req, res, next) => {
   try {
-    const images = await Image.find({});
-    // console.log(images[2].img);
+    const images = await Image.find({})
+      .sort({ _id: 1 })
+      .skip(req.params.skip)
+      .limit(req.params.limit);
     res.json(images);
   } catch (err) {
     console.log(err);
@@ -46,9 +48,19 @@ export const getAllImages = async (req, res, next) => {
 
 export const findImgsByTag = async (req, res, next) => {
   try {
-    const images = await Image.find({ tag: req.params });
+    const images = await Image.find({ tag: req.params.tag })
+      .skip(req.params.skip)
+      .limit(req.params.limit);
     res.json(images);
   } catch (err) {
     next(err);
   }
+};
+
+export const deleteImage = async (req, res, next) => {
+  try {
+    // console.log(req.params.id);
+    const image = await Image.findByIdAndDelete(req.params.id);
+    res.status(200).send();
+  } catch (err) {}
 };

@@ -12,9 +12,9 @@ export const routes: {
 	post: string;
 	put: string;
 } = {
-	delete: '/deleteImage/',
+	delete: '/deleteImage',
 	get: '/getAllImgs',
-	getByTag: '/findImgByTag/',
+	getByTag: '/findImgByTag',
 	post: '/addImage',
-	put: '/putImage/',
+	put: '/putImage',
 };
