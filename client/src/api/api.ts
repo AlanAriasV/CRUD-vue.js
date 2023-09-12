@@ -13,21 +13,11 @@ const instance = axios.create(config);
 const getPosts = async (tag?: string) => {
 	const url = tag ? `${routes.getByTag}${tag}` : routes.get;
 
-	// const response = await instance.get(url);
-
-	// if (response.status === 200) {
-	// 	return response.data;
-	// } else {
-	// 	console.log(response.data);
-	// }
-
 	return instance.get(url, {
 		headers: {
 			accept: 'application/json',
 		},
 	});
-	// .then(response => response.data)
-	// .catch(error => error);
 };
 
 // const updatePost = async () => {};
@@ -44,8 +34,5 @@ const uploadPost = async (img: string) =>
 			},
 		}
 	);
-// .then(response => response.data)
-// .catch(error => error);
-// // const Post = async () => {};
 
 export { getPosts, uploadPost };

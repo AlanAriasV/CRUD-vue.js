@@ -28,7 +28,7 @@
 							>
 								<i class="pi pi-image" />
 								<p>
-									Arrasta la imagen aquí o presiona para
+									Arrastra la imagen aquí o presiona para
 									buscar
 								</p>
 							</div>
@@ -75,7 +75,7 @@ const url = ref<string>();
 const base64 = ref<string>();
 
 function onFileChange(e: Event) {
-	const file = e.target?.files[0];
+	const file = e.target.files[0];
 	url.value = URL.createObjectURL(file);
 	toBase64(file);
 }
