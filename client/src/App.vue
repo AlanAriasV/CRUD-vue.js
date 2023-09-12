@@ -10,7 +10,7 @@ import Home from './views/Home.vue';
 </script>
 <style scoped lang="scss">
 hr {
-	width: 1fr; //Por alguna razón, 100% hace que aparezca la barra de desplazamiento horizontal
+	width: 1fr;
 	height: 0;
 	margin: 0;
 	padding: 0;

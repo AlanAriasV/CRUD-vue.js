@@ -6,17 +6,17 @@
 	<div class="image-footer">
 		<div class="vote-container">
 			<i
-				@click="voteUp"
+				@click="voteUp(imgId)"
 				class="pi pi-arrow-circle-up upvote"
 			/>
-			<span> {{ props.imgUpVotes }}</span>
+			<span> {{ imgUpVotes }}</span>
 		</div>
 		<div class="vote-container">
 			<i
-				@click="voteDown"
+				@click="voteDown(imgId)"
 				class="pi pi-arrow-circle-down downvote"
 			/>
-			<span> {{ props.imgDownVotes }}</span>
+			<span> {{ imgDownVotes }}</span>
 		</div>
 	</div>
 	<div
@@ -28,9 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { deletePost } from '../api/api';
-
-const props = defineProps({
+defineProps({
 	imgId: {
 		type: String,
 		required: true,
@@ -51,15 +49,15 @@ const props = defineProps({
 		type: Function,
 		required: true,
 	},
+	voteUp: {
+		type: Function,
+		required: true,
+	},
+	voteDown: {
+		type: Function,
+		required: true,
+	},
 });
-
-function voteUp() {
-	console.log('Votar positivo img: ', props.imgId);
-}
-
-function voteDown() {
-	console.log('Votar negativo img: ', props.imgId);
-}
 </script>
 
 <style lang="scss">

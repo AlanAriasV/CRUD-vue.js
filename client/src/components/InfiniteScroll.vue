@@ -1,16 +1,21 @@
 <template>
-	<div class="grid-container">
-		<div
-			class="grid-item"
-			v-for="post in postsList"
-		>
-			<Post
-				:imgId="post._id"
-				:imgSrc="post.img"
-				:imgDownVotes="post.downVotes"
-				:imgUpVotes="post.upVotes"
-				:deletePost="Delete"
-			/>
+	<div class="images">
+		<div class="grid-container">
+			<div
+				class="grid-item"
+				v-for="post in postsList"
+			>
+				<Post
+					:imgId="post._id"
+					:imgDownVotes="post.downVotes"
+					:imgSrc="post.img"
+					:imgUpVotes="post.upVotes"
+					:deletePost="Delete"
+					:voteUp="voteUp"
+					:voteDown="voteDown"
+				/>
+			</div>
+			<div id="scroll-trigger"></div>
 		</div>
 	</div>
 </template>
@@ -21,14 +26,13 @@ import Post from '../components/Post.vue';
 
 <script lang="ts">
 import { ref } from 'vue';
-import { deletePost, getPosts } from '../api/api';
+import { deletePost, getPosts, updatePost } from '../api/api';
 ('../api/api.ts');
-
-const tag = ref<string>();
 
 export default {
 	data: () => {
 		return {
+			tag: localStorage.getItem('tag'),
 			currentPage: 1,
 			maxPerPage: 12,
 			showLoader: false,
@@ -48,18 +52,50 @@ export default {
 			),
 		};
 	},
-	computed: {},
 	methods: {
+		voteUp(imgId: string) {
+			searchPost: for (const post of this.postsList) {
+				if (post._id === imgId) {
+					post.upVotes++;
+					updatePost({
+						_id: imgId,
+						case: 'upVotes',
+						votes: post.upVotes,
+					});
+					break searchPost;
+				}
+			}
+		},
+		voteDown(imgId: string) {
+			searchPost: for (const post of this.postsList) {
+				if (post._id === imgId) {
+					post.downVotes++;
+					updatePost({
+						_id: imgId,
+						case: 'downVotes',
+						votes: post.downVotes,
+					});
+					break searchPost;
+				}
+			}
+		},
 		Delete(imgId: string) {
-			deletePost(imgId).then(_ => {});
-			console.log('Eliminar img: ', imgId);
+			deletePost(imgId).then(_ => {
+				searchPost: for (const post of this.postsList) {
+					if (post._id === imgId) {
+						const index: number = this.postsList.indexOf(post);
+						this.postsList.splice(index, 1);
+						break searchPost;
+					}
+				}
+			});
 		},
 		pageOffset() {
 			return this.maxPerPage * this.currentPage;
 		},
 		async getMorePosts() {
 			const { data: newPosts } = await getPosts({
-				tag: tag.value,
+				tag: this.tag,
 				limit: this.maxPerPage,
 				skip: this.postsList.length,
 			});
@@ -94,7 +130,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// arreglar tamaño
 $scrollbar-border: 12px;
 
 .images {
@@ -168,4 +203,3 @@ $scrollbar-border: 12px;
 	}
 }
 </style>
-../api/api.ts

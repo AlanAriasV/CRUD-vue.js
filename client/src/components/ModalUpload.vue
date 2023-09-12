@@ -45,10 +45,7 @@
 								class="img-placeholder"
 							>
 								<i class="pi pi-image" />
-								<p>
-									Arrastra la imagen aquí o presiona para
-									buscar
-								</p>
+								<p>Presiona para buscar</p>
 							</div>
 							<div
 								v-else
@@ -101,17 +98,26 @@ const categories = [
 	'Animales',
 ];
 
+const emit = defineEmits(['close']);
+
 function onFileChange(e: Event) {
-	const file = e.target.files[0];
-	url.value = URL.createObjectURL(file);
-	toBase64(file);
+	const inputElement = e.target as HTMLInputElement;
+	const file = inputElement.files?.[0];
+	if (file) {
+		url.value = URL.createObjectURL(file);
+		toBase64(file);
+	}
 }
 
-function upload() {
+async function upload() {
 	if (base64.value) {
-		return uploadPost(base64.value);
+		uploadPost({ img: base64.value, tag: selectedCategory.value }).then(
+			_ => {
+				emit('close');
+				location.reload();
+			}
+		);
 	}
-	console.log('subir ', url.value);
 }
 
 function toBase64(file: Blob) {
@@ -219,6 +225,7 @@ select {
 	width: 100%;
 	border: dashed 1px rgba(0, 0, 0, 0.1);
 	object-fit: cover;
+	cursor: pointer;
 
 	form {
 		height: 100%;
@@ -226,6 +233,7 @@ select {
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+		cursor: pointer;
 	}
 
 	input {
@@ -243,6 +251,7 @@ select {
 		text-align: center;
 		font-size: 1rem;
 		height: 100%;
+		cursor: pointer;
 	}
 
 	.img-preview {

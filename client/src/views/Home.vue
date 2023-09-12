@@ -5,8 +5,8 @@
 	</main>
 </template>
 <script setup lang="ts">
-import WallImages from '../components/WallImages.vue';
 import Categories from '../components/Categories.vue';
+import WallImages from '../components/WallImages.vue';
 </script>
 <style lang="scss">
 main {

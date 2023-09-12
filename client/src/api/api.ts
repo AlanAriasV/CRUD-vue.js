@@ -3,8 +3,8 @@ import { config, routes } from '../util/const';
 
 const instance = axios.create(config);
 
-const getPosts = async (props: {
-	tag?: string;
+const getPosts = (props: {
+	tag: string | null;
 	limit: number;
 	skip: number;
 }) => {
@@ -13,21 +13,20 @@ const getPosts = async (props: {
 	const url =
 		(tag ? `${routes.getByTag}/${tag}` : routes.get) + `/${skip}/${limit}`;
 
-	return instance.get(url, {
-		headers: {
-			accept: 'application/json',
-		},
-	});
+	return instance.get(url);
 };
 
-// const updatePost = async () => {};
-const deletePost = async (_id: string) => {
+const updatePost = (props: { _id: string; case: string; votes: number }) => {
+	const url = `${routes.put}/${props.case}`;
+	return instance.put(url, props);
+};
+
+const deletePost = (_id: string) => {
 	const url = `${routes.delete}/${_id}`;
-	instance.delete(url);
+	return instance.delete(url);
 };
-const uploadPost = async (img: string) =>
-	instance.post(routes.post, {
-		img: img,
-	});
 
-export { getPosts, uploadPost, deletePost };
+const uploadPost = (props: { img: string; tag: string }) =>
+	instance.post(routes.post, props);
+
+export { deletePost, getPosts, updatePost, uploadPost };
