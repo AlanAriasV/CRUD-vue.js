@@ -1,10 +1,24 @@
 <template>
-	<div class="grid-container">
-		<div class="grid-item" v-for="post in postsList">
-			<Post :imgId="post.id" :imgSrc="post.thumbnail" :imgUpVotes="post.price" :imgDownVotes="post.stock" />
+	<div
+		class="grid-container"
+		id="1"
+	>
+		<div
+			class="grid-item"
+			v-for="post in postsList"
+		>
+			<Post
+				:imgId="post._id"
+				:imgSrc="post.img"
+				:imgDownVotes="post.downVotes"
+				:imgUpVotes="post.upVotes"
+			/>
 		</div>
 		<div id="scroll-trigger" />
-		<div class="circle-loader" v-if="showLoader" />
+		<div
+			class="circle-loader"
+			v-if="showLoader"
+		/>
 	</div>
 </template>
 
@@ -14,7 +28,8 @@ import Post from '../components/Post.vue';
 
 <script lang="ts">
 import { ref } from 'vue';
-import getPosts from '../api/getPosts.ts';
+import { getPosts } from '../api/api';
+('../api/api.ts');
 
 export default {
 	data: () => {
@@ -24,13 +39,17 @@ export default {
 			showLoader: false,
 			postsList: ref(
 				<
-				{
-					id: string;
-					thumbnail: string;
-					price: string;
-					stock: string;
-				}[]
-				>(<unknown>[])
+					{
+						_id: string;
+						_v: number;
+						createdAd: string;
+						downVotes: number;
+						img: string;
+						tag: string;
+						updatedAt: string;
+						upVotes: number;
+					}[]
+				>[]
 			),
 		};
 	},
@@ -40,10 +59,11 @@ export default {
 			return this.maxPerPage * this.currentPage;
 		},
 		async getMorePosts() {
-			const newPosts = await getPosts(
-				this.maxPerPage,
-				this.postsList.length
-			);
+			const { data: newPosts } = await getPosts();
+			console.log('newPosts');
+			console.log(newPosts);
+			// this.maxPerPage,
+			// this.postsList.length
 			this.postsList.push(...newPosts);
 		},
 
@@ -140,3 +160,4 @@ $scrollbar-border: 12px;
 	}
 }
 </style>
+../api/api.ts

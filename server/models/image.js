@@ -4,22 +4,13 @@ const Schema = mongoose.Schema;
 
 const imageSchema = new Schema(
   {
-    title: {
-      type: String,
-      required: true,
-    },
-    desc: {
-      type: String,
-      required: true,
-    },
-    tag: {
-      type: String,
-      required: true,
-    },
+    downVotes: Number,
     img: {
-      data: Buffer,
-      contentType: String,
+      type: String,
+      required: true,
     },
+    tag: String,
+    upVotes: Number,
   },
   { timestamps: true }
 );

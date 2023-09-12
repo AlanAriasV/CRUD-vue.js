@@ -22,7 +22,7 @@ var upload = multer({ storage: storage });
 
 router.get("/", testing);
 router.post("/addImage", upload.single("image"), addImg);
-router.post("/getAllImgs", getAllImages);
-router.post("/findImgByTag/:tag", findImgsByTag);
+router.get("/getAllImgs", getAllImages);
+router.get("/findImgByTag/:tag", findImgsByTag);
 
 export default router;
