@@ -6,6 +6,16 @@
                 <h1>Subir imagen</h1>
             </div>
             <div class="modal-body">
+                <div class="category-container">
+                    <div class="selector">
+                        <select v-model="selectedCategory">
+                            <option selected disabled>Seleccione una categoría</option>
+                            <option v-for="category in categories" :value="category">
+                                {{ category }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
                 <div class="upload-container">
                     <form method="post" action="" enctype="multipart/form-data">
                         <input type="file" name="file" id="file" @change="onFileChange" />
@@ -40,6 +50,8 @@
 import { ref } from 'vue';
 
 const url = ref<string>();
+const selectedCategory = ref<string>("Seleccione una categoría");
+const categories = ["Paisajes", "Fotorealista", "Ciencia Ficción", "Personajes", "3D", "Animales"];
 
 function onFileChange(e: Event) {
     const file = e.target.files[0];
@@ -83,6 +95,7 @@ function upload() {
 .modal-content {
     position: absolute;
     display: flex;
+    gap: 10px;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
@@ -98,19 +111,63 @@ function upload() {
 }
 
 .modal-body {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: min-content 1fr;
+    gap: 15px;
+}
+
+.category-container {
+    display: flex;
+    width: 100%;
+    height: 30px;
+}
+
+select {
+    /* Reset Select */
+    appearance: none;
+    outline: 10px red;
+    border: none;
+    box-shadow: none;
+    /* Personalize */
+    flex: 1;
+    padding: 0 1em;
+    color: #fff;
+    background-color: rgb(22, 22, 22);
+    cursor: pointer;
+    font-family: var(--font);
+}
+
+
+.selector {
     position: relative;
-    border: dashed 1px rgba(0, 0, 0, 0.1);
-    width: 50%;
-    height: 50%;
+    display: flex;
+    width: 100%;
+    height: 2em;
+    border-radius: .25em;
+    overflow: hidden;
+
+    &::after {
+        content: '\25BC';
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0.5em;
+        background-color: rgba(165, 165, 165, 0.1);
+        pointer-events: none;
+    }
 }
 
 .upload-container {
+    position: relative;
     height: 100%;
-    top: 0;
-    left: 0;
+    width: 100%;
+    border: dashed 1px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
 
     form {
-        height: inherit;
+        height: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -135,14 +192,17 @@ function upload() {
     }
 
     .img-preview {
+
+        position: absolute;
+        left: 0;
         width: 100%;
         height: 100%;
-        position: relative;
+        overflow: hidden;
 
         img {
             width: 100%;
-            height: 100%;
             object-fit: cover;
+            object-position: center center;
         }
 
         i {
