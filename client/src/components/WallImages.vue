@@ -26,7 +26,7 @@ const closeModal = () => {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 section {
     display: grid;
     grid-template-rows: min-content 1fr;

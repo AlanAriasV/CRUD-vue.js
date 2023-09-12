@@ -1,10 +1,12 @@
 <template>
-	<div class="grid-container">
-		<div class="grid-item" v-for="post in postsList">
-			<Post :imgId="post.id" :imgSrc="post.thumbnail" :imgUpVotes="post.price" :imgDownVotes="post.stock" />
+	<div class="images">
+		<div class="grid-container">
+			<div class="grid-item" v-for="post in postsList">
+				<Post :imgId="post.id" :imgSrc="post.thumbnail" :imgUpVotes="post.price" :imgDownVotes="post.stock" />
+			</div>
+			<div id="scroll-trigger" />
+			<div class="circle-loader" v-if="showLoader" />
 		</div>
-		<div id="scroll-trigger" />
-		<div class="circle-loader" v-if="showLoader" />
 	</div>
 </template>
 
@@ -20,7 +22,7 @@ export default {
 	data: () => {
 		return {
 			currentPage: 1,
-			maxPerPage: 8,
+			maxPerPage: 12,
 			showLoader: false,
 			postsList: ref(
 				<
@@ -78,10 +80,19 @@ export default {
 // arreglar tamaño
 $scrollbar-border: 12px;
 
+.images {
+	position: relative;
+}
+
 .grid-container {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
-	height: 600px;
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	height: 100%;
 	width: 100%;
 	gap: 10px;
 	box-sizing: border-box;
